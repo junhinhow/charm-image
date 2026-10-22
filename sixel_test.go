@@ -49,6 +49,9 @@ func TestRenderSixelSequence(t *testing.T) {
 	if !strings.Contains(payload, "!") {
 		t.Fatalf("payload não usa run-length encoding: %q", payload)
 	}
+	if !strings.HasSuffix(payload, "-") {
+		t.Fatalf("payload não encerra a última banda: %q", payload)
+	}
 }
 
 func TestRenderSixelSinglePixel(t *testing.T) {

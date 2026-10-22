@@ -156,6 +156,11 @@ func buildSixelPayload(width, height int, pixels []uint8, used [256]bool) string
 		}
 	}
 
+	// Fecha a última banda com um separador. Além de ser aceito por qualquer
+	// terminal, isso encerra um eventual RLE final para decodificadores que só
+	// processam a repetição ao encontrar o próximo comando.
+	sb.WriteByte('-')
+
 	return sb.String()
 }
 
