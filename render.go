@@ -49,7 +49,7 @@ func Render(img image.Image, opts ...Option) (string, error) {
 	case ProtocolHalfBlock:
 		return renderHalfBlock(img, options.Width, options.Height, backgroundRGBA(options.Background)), nil
 	case ProtocolSixel:
-		out, err := RenderSixel(img, options.Width, options.Height)
+		out, err := renderSixel(img, options.Width, options.Height, backgroundRGBA(options.Background))
 		if err != nil {
 			return "", err
 		}

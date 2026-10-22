@@ -88,6 +88,21 @@ func TestRenderSixelDeterministic(t *testing.T) {
 	}
 }
 
+func TestRenderSixelBackground(t *testing.T) {
+	img := image.NewNRGBA(image.Rect(0, 0, 1, 1))
+	img.SetNRGBA(0, 0, color.NRGBA{R: 0xff, A: 0x00})
+
+	out, err := renderSixel(img, 1, 1, backgroundRGBA(color.RGBA{B: 0xff, A: 0xff}))
+	if err != nil {
+		t.Fatalf("renderSixel() erro: %v", err)
+	}
+
+	payload := decodeSixel(t, out)
+	if !strings.Contains(payload, "#5;2;0;0;100") {
+		t.Fatalf("payload não usa a cor de fundo azul: %q", payload)
+	}
+}
+
 func TestRenderSixelNil(t *testing.T) {
 	if _, err := RenderSixel(nil, 10, 10); err == nil {
 		t.Fatal("RenderSixel(nil) deveria devolver erro")

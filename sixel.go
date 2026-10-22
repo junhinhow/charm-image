@@ -15,6 +15,12 @@ import (
 // célula usada no restante do pacote). Largura ou altura zero/negativa são
 // resolvidas como em Render. Devolve erro se img for nil ou não tiver pixels.
 func RenderSixel(img image.Image, width, height int) (string, error) {
+	return renderSixel(img, width, height, backgroundRGBA(nil))
+}
+
+// renderSixel é a implementação usada por Render e permite configurar a cor de
+// fundo usada na composição de transparências.
+func renderSixel(img image.Image, width, height int, bg color.RGBA) (string, error) {
 	if img == nil {
 		return "", errNilImage
 	}
@@ -30,7 +36,6 @@ func RenderSixel(img image.Image, width, height int) (string, error) {
 
 	pixels := make([]uint8, pixelWidth*pixelHeight)
 	var used [256]bool
-	bg := backgroundRGBA(nil)
 
 	for y := 0; y < pixelHeight; y++ {
 		for x := 0; x < pixelWidth; x++ {
